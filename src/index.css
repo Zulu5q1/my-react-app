@@ -1,0 +1,10 @@
+@import "tailwindcss";
+@plugin "@iconify/tailwind4";
+
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
