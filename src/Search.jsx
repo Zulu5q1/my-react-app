@@ -12,6 +12,7 @@ const Search = () => {
     const [error, setError] = useState('');
     const filteredItems = items.filter(item => item.toLowerCase().includes(searchQ.toLowerCase()));
 
+    
     const handleSearch = async (event) => {
         event.preventDefault();
         setLoading(true);
@@ -43,7 +44,7 @@ const Search = () => {
         } finally {
             setLoading(false);
             setSearchQ('');
-        }
+        }  
 
     }
 
@@ -51,13 +52,18 @@ const Search = () => {
     
     return <div className=" flex flex-col bg-orange-100 min-h-screen w-full items-center justify-center ">
         <div className="text-5xl text-orange-500 pt-10 font-bold">FOOGLE</div>
-        <form onSubmit={(e) => handleSearch(e)}
+        <form onSubmit={(e) => { 
+            if (searchQ.trim()) {
+                handleSearch(e);
+            }
+        }}
         className="flex items-center flex-col sm:flex-row">
             <div className="bg-orange-200 rounded-lg w-64 p-2 flex items-center m-4 border border-orange-300 ">
                 <i className="  icon-[heroicons--magnifying-glass] text-orange-500 text-xl ml-2"></i>
-                <input value={searchQ} onChange={(e) => {setSearchQ(e.target.value)}} className=" ml-4 border-none focus:outline-none "type="text" placeholder="Search..." />
+                <input value={searchQ} onChange={(e) => {setSearchQ(e.target.value)}} 
+                className=" ml-4 border-none focus:outline-none "type="text" placeholder="Search..." />
             </div>
-            <button className=" bg-orange-400 h-8 w-18 rounded-md text-white font-bold " 
+            <button className=" bg-orange-400 h-8 w-18 rounded-md text-white font-bold hover:bg-orange-500 hover:cursor-pointer " 
             type='submit'>{loading ? '. . .' : 'Search'}</button>
         </form>
         
@@ -72,9 +78,9 @@ const Search = () => {
                      )) 
                      : <div className="text-orange-500">No Suggestions Found</div> 
                      )}
-             <div className="w-full max-w-xl px-2">
-                {results.map((item) => (
-                    <div key={item} className=" mb-6 rounded-lg p-2 border border-orange-400">
+             <div className="w-full max-w-xl px-2 mt-4">
+                {results.map((item, index) => (
+                    <div key={index} className=" mb-6 rounded-lg p-2 border border-orange-400">
                         <h3 className="mt-4 text-orange-500 font-bold text-center mb-2">{item.title}</h3>
                         <a href={item.link} target="_blank" className="mt-4 text-orange-500">{item.snippet}</a>
                     </div>
