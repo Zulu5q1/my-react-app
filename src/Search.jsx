@@ -74,10 +74,10 @@ const Search = () => {
                 ? filteredItems.map((item) => (
                     <div 
                     key={item} 
-                    className="text-orange-500 hover:bg-orange-300 cursor-pointer" 
+                    className="text-orange-500 hover:bg-orange-300 cursor-pointer text-center" 
                     onClick={() => setSearchQ(item)}> {item} </div>
                      )) 
-                     : <div className="text-orange-500">No Suggestions Found</div> 
+                     : <div className="text-orange-500 text-center">No Suggestions Found</div> 
                      )}
              <div className="w-full px-12 mt-4 flex flex-wrap justify-center">
                 {results.map((item, index) => (
