@@ -79,12 +79,12 @@ const Search = () => {
                      )) 
                      : <div className="text-orange-500">No Suggestions Found</div> 
                      )}
-             <div className="w-full max-w-xl px-2 mt-4">
+             <div className="w-full px-12 mt-4 flex flex-wrap justify-center">
                 {results.map((item, index) => (
-                    <div key={index} className=" mb-6 rounded-lg p-2 border border-orange-400">
+                    <a key={index} href={item.link} target="_blank" className=" m-6 rounded-lg px-4 py-2 border border-orange-400 w-70 h-auto hover:bg-orange-300 justify-around flex flex-col items-center">
                         <h3 className="mt-4 text-orange-500 font-bold text-center mb-2">{item.title}</h3>
                         <a href={item.link} target="_blank" className="mt-4 text-orange-500">{item.snippet}</a>
-                    </div>
+                    </a>
                 ) )}
              </div>
             
