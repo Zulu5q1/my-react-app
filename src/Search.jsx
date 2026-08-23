@@ -36,6 +36,7 @@ const Search = () => {
         try {
             const response = await fetch("/api-search", requestOptions);
             const data = await response.json();
+            console.log(response)
             console.log(data);
             setResults(data.organic)
         } catch (error) {
