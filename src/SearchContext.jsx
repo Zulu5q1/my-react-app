@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext } from "react";
 
 const SearchContext = createContext();
 
@@ -13,7 +13,43 @@ export function SearchProvider({ children }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [isOpen, setIsOpen] = useState(false); // For history dropdown
-  const SERPER_API_KEY = "b3b6a249c81efac0e048112f1d93a66fe2234f36"; 
+  const SERPER_API_KEY = "b3b6a249c81efac0e048112f1d93a66fe2234f36";
+  
+  const displayHistory = () => {
+        return Object.values(searchH);
+    };
+
+  const history = () => {
+    return <div>
+      {isOpen && displayHistory().slice(-5).map((historyItem, index) => (
+            <div 
+                key={index} 
+                onClick={() => setSearchQ(historyItem)}
+                className=" mb-2 font-medium bg-orange-200 text-orange-700 px-4 py-2 rounded-lg text-center cursor-pointer hover:bg-orange-300 w-full"
+            >
+                {historyItem}
+            </div>
+        ))}
+    </div>
+  }
+
+  const fullHistory = (navigate) => {
+
+    if (navigate)  navigate('/');
+
+    return <div className="flex flex-wrap gap-2 p-4">
+      {displayHistory().map((fHistoryItem, index) => (
+            <div 
+                key={index} 
+                onClick={() => setSearchQ(fHistoryItem)}
+                className=" font-medium bg-orange-200 text-orange-700 px-4 py-2 rounded-lg text-center cursor-pointer hover:bg-orange-300 "
+            >
+                {fHistoryItem}
+            </div>
+        ))}
+    </div>
+  }
+ 
 
   const handleSearch = async (event, navigate) => {
     if (event) event.preventDefault();
@@ -67,7 +103,9 @@ export function SearchProvider({ children }) {
       loading, setLoading,
       error, setError,
       isOpen, setIsOpen,
-      handleSearch
+      handleSearch,
+      history,
+      fullHistory
     }}>
       {children}
     </SearchContext.Provider>
