@@ -113,4 +113,5 @@ export function SearchProvider({ children }) {
 }
 
 // Custom hook to quickly access search data anywhere
+// eslint-disable-next-line react-refresh/only-export-components
 export const useSearch = () => useContext(SearchContext);
