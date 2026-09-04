@@ -7,7 +7,7 @@ export function SearchProvider({ children }) {
   const [searchQ, setSearchQ] = useState('');
   const [searchH, setSearchH] = useState(() => {
         const saved = localStorage.getItem('History');
-        return saved ? JSON.parse(saved) : {};
+        return saved ? JSON.parse(saved) : [];
     });
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -16,12 +16,12 @@ export function SearchProvider({ children }) {
   const SERPER_API_KEY = "b3b6a249c81efac0e048112f1d93a66fe2234f36";
   
   const displayHistory = () => {
-        return Object.values(searchH);
+        return searchH
     };
 
   const history = () => {
     return <div>
-      {isOpen && displayHistory().slice(-5).map((historyItem, index) => (
+      {isOpen && displayHistory().slice(0, 5).map((historyItem, index) => (
             <div 
                 key={index} 
                 onClick={() => setSearchQ(historyItem)}
@@ -60,10 +60,10 @@ export function SearchProvider({ children }) {
     setIsOpen(false);
 
     // Update search history object
-    setSearchH(prev => ({
-        ...prev,
-        [searchQ]: searchQ
-    }));
+    setSearchH(prevItem => {
+        const filterHistory = prevItem.filter((item) => item !== searchQ);
+        return [searchQ, ...filterHistory];
+    });
 
     // INSTANT REDIRECT: Go to results page immediately so user sees the loading state
     if (navigate) navigate('/results');
