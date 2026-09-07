@@ -6,6 +6,7 @@ import { SearchProvider } from "./SearchContext";
 import About from "./About.jsx";
 import NotFound from "./NotFound.jsx";
 import History from './History.jsx';
+import Profile from "./Profile.jsx";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path:'/history',
     element: <History/>
+  },
+  {
+    path:'/profile',
+    element: <Profile/>
   }
 
 ])

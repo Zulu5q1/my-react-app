@@ -10,7 +10,7 @@ const Header = () => {
     <div className="flex gap-4 items-center ">
         <Link to="/history" className="hover:cursor-pointer hover:text-orange-500 ">History</Link>
         <Link to="/about" className="hover:cursor-pointer hover:text-orange-500 ">About </Link>
-        <button className=" icon-[heroicons--user-solid] text-xl hover:cursor-pointer hover:text-orange-500 "></button>
+        <Link to="/profile" className=" icon-[heroicons--user-solid] text-xl hover:cursor-pointer hover:text-orange-500 "></Link>
     </div>
 
     </div>
