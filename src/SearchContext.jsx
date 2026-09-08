@@ -12,6 +12,7 @@ export function SearchProvider({ children }) {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [resultsT, setResultsT] = useState([]); // For trending results
   const [isOpen, setIsOpen] = useState(false); // For history dropdown
   const SERPER_API_KEY = "b3b6a249c81efac0e048112f1d93a66fe2234f36";
   
@@ -95,15 +96,49 @@ export function SearchProvider({ children }) {
     }  
   };
 
+  const handleTrend = async (item) => {
+
+
+    
+
+    
+    const myHeaders = new Headers();
+    myHeaders.append("X-API-KEY", SERPER_API_KEY);
+    myHeaders.append("content-type", "application/json");
+
+    const raw = JSON.stringify({ "q": item });
+
+    const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+    };
+
+    try {
+        const response = await fetch("/api-search", requestOptions);
+        const data = await response.json();
+        setResultsT((prevResultsT) => [...prevResultsT, data.organic || []]);
+    } catch (error) {
+        console.error("Error fetching search results:", error);
+        setError("An error occurred while fetching search results. Check your internet connection and try again.");
+    } finally {
+        setLoading(false);
+        setSearchQ(''); // Clear input after search completes
+    }  
+  };
+
   return (
     <SearchContext.Provider value={{
       searchQ, setSearchQ,
       searchH, setSearchH,
       results, setResults,
+      resultsT, setResultsT,
       loading, setLoading,
       error, setError,
       isOpen, setIsOpen,
       handleSearch,
+      handleTrend,
       history,
       fullHistory
     }}>
