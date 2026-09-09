@@ -10,7 +10,7 @@ const Search = () => {
 
     const navigate = useNavigate()
    
-    const { searchQ, setSearchQ, searchH, isOpen, setIsOpen, handleSearch, history } = useSearch();
+    const { searchQ, setSearchQ, searchH, isOpen, setIsOpen, handleSearch, history, trending } = useSearch();
     const items = ['React', 'Vue', 'Angular', 'Svelte', 'Next.js', 'Nuxt.js', 'Gatsby', 'Ember.js', 'Backbone.js', 'jQuery', 'Bootstrap', 'Tailwind CSS', 'Material-UI', 'Ant Design', 'Chakra UI', 'Bulma', 'Foundation', 'Semantic UI', 'UIKit', 'Spectre.css'];
     
 
@@ -26,7 +26,7 @@ const Search = () => {
     
 
     return (
-        <div className=" relative flex flex-col bg-orange-100 min-h-screen w-full items-center justify-center">
+        <div className={`relative flex flex-col bg-orange-100 ${trending ? 'h-[400px]':'h-screen' }  w-full items-center justify-center`}>
             <div onClick={() => setIsOpen(!isOpen)} className=" cursor-pointer absolute top-0 right-0 mt-4 mr-4 flex flex-col gap-2  text-orange-700 bg-orange-300 px-2 pt-1 rounded-md font-bold items-center justify-center">Recent Searches 
             {history()}
             </div>

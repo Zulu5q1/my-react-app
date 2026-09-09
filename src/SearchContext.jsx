@@ -3,6 +3,7 @@ import { createContext, useState, useContext } from "react";
 const SearchContext = createContext();
 
 export function SearchProvider({ children }) {
+
   // All states needed across both pages
   const [searchQ, setSearchQ] = useState('');
   const [searchH, setSearchH] = useState(() => {
@@ -11,6 +12,8 @@ export function SearchProvider({ children }) {
     });
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const [trending, setTrending] = useState(false);
   const [error, setError] = useState('');
   const [resultsT, setResultsT] = useState([]); // For trending results
   const [isOpen, setIsOpen] = useState(false); // For history dropdown
@@ -25,7 +28,7 @@ export function SearchProvider({ children }) {
       {isOpen && displayHistory().slice(0, 5).map((historyItem, index) => (
             <div 
                 key={index} 
-                onClick={() => setSearchQ(historyItem)}
+                onClick={() =>{ setSearchQ(historyItem); handleSearch();}}
                 className=" mb-2 font-medium bg-orange-200 text-orange-700 px-4 py-2 rounded-lg text-center cursor-pointer hover:bg-orange-300 w-full"
             >
                 {historyItem}
@@ -140,7 +143,9 @@ export function SearchProvider({ children }) {
       handleSearch,
       handleTrend,
       history,
-      fullHistory
+      fullHistory,
+      trending, setTrending,
+    //   navigate, setNavigate
     }}>
       {children}
     </SearchContext.Provider>
