@@ -23,61 +23,28 @@ export function SearchProvider({ children }) {
         return searchH
     };
 
-  const history = () => {
-    return <div>
-      {isOpen && displayHistory().slice(0, 5).map((historyItem, index) => (
-            <div 
-                key={index} 
-                onClick={() =>{ setSearchQ(historyItem); handleSearch();}}
-                className=" mb-2 font-medium bg-orange-200 text-orange-700 px-4 py-2 rounded-lg text-center cursor-pointer hover:bg-orange-300 w-full"
-            >
-                {historyItem}
-            </div>
-        ))}
-    </div>
-  }
-
-  const fullHistory = (navigate) => {
-
-    if (navigate)  navigate('/');
-
-    return <div className="flex flex-wrap gap-2 p-4">
-      {displayHistory().map((fHistoryItem, index) => (
-            <div 
-                key={index} 
-                onClick={() => setSearchQ(fHistoryItem)}
-                className=" font-medium bg-orange-200 text-orange-700 px-4 py-2 rounded-lg text-center cursor-pointer hover:bg-orange-300 "
-            >
-                {fHistoryItem}
-            </div>
-        ))}
-    </div>
-  }
- 
-
-  const handleSearch = async (event, navigate) => {
+  const handleSearch = async (event, navigate, term) => {
     if (event) event.preventDefault();
-    if (!searchQ.trim()) return;
 
+    const query = (term ?? searchQ).trim();
+    if (!query) return;
+
+    setSearchQ(query);
     setLoading(true);
     setError('');
     setIsOpen(false);
 
-    // Update search history object
     setSearchH(prevItem => {
-        const filterHistory = prevItem.filter((item) => item !== searchQ);
-        return [searchQ, ...filterHistory];
+        const filterHistory = prevItem.filter((item) => item.toLowerCase() !== query.toLowerCase());
+        return [query, ...filterHistory];
     });
 
-    // INSTANT REDIRECT: Go to results page immediately so user sees the loading state
     if (navigate) navigate('/results');
 
-    
     const myHeaders = new Headers();
     myHeaders.append("X-API-KEY", SERPER_API_KEY);
     myHeaders.append("content-type", "application/json");
-
-    const raw = JSON.stringify({ "q": searchQ });
+    const raw = JSON.stringify({ "q": query });
 
     const requestOptions = {
         method: "POST",
@@ -95,9 +62,37 @@ export function SearchProvider({ children }) {
         setError("An error occurred while fetching search results. Check your internet connection and try again.");
     } finally {
         setLoading(false);
-        setSearchQ(''); // Clear input after search completes
+        setSearchQ('');
     }  
   };
+
+  const history = (navigate) => {
+    return <div>
+      {isOpen && displayHistory().slice(0, 5).map((historyItem, index) => (
+            <div 
+                key={index} 
+                onClick={() => handleSearch(null, navigate, historyItem)}
+                className=" mb-2 font-medium bg-orange-200 text-orange-700 px-4 py-2 rounded-lg text-center cursor-pointer hover:bg-orange-300 w-full"
+            >
+                {historyItem}
+            </div>
+        ))}
+    </div>
+  }
+
+  const fullHistory = (navigate) => {
+    return <div className="flex flex-wrap gap-2 p-4">
+      {displayHistory().map((fHistoryItem, index) => (
+            <div 
+                key={index} 
+                onClick={() => handleSearch(null, navigate, fHistoryItem)}
+                className=" font-medium bg-orange-200 text-orange-700 px-4 py-2 rounded-lg text-center cursor-pointer hover:bg-orange-300 "
+            >
+                {fHistoryItem}
+            </div>
+        ))}
+    </div>
+  }
 
   const handleTrend = async (item) => {
 

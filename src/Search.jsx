@@ -28,7 +28,7 @@ const Search = () => {
     return (
         <div className={`relative flex flex-col bg-orange-100 ${trending ? 'h-[400px]':'h-screen' }  w-full items-center justify-center`}>
             <div onClick={() => setIsOpen(!isOpen)} className=" cursor-pointer absolute top-0 right-0 mt-4 mr-4 flex flex-col gap-2  text-orange-700 bg-orange-300 px-2 pt-1 rounded-md font-bold items-center justify-center">Recent Searches 
-            {history()}
+            {history(navigate)}
             </div>
             <div className="text-5xl text-orange-500 pt-10 font-bold">FOOGLE</div>
             <form onSubmit={(e) => { 
@@ -63,7 +63,7 @@ const Search = () => {
                         <div 
                             key={item} 
                             className="text-orange-500 hover:bg-orange-300 cursor-pointer text-center" 
-                            onClick={() => setSearchQ(item)}
+                            onClick={() => handleSearch(null, navigate, item)}
                         > 
                             {item} 
                         </div>

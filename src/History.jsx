@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const History = () => {
+    
     const { fullHistory } = useSearch();
 
     const navigate = useNavigate();

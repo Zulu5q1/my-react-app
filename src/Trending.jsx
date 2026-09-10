@@ -22,13 +22,14 @@ const Trending = () => {
     }, [searchH, handleTrend]);
 
     return (
-        setTrending(true),
+        
         <div className="h-screen">
             {searchH && searchH.length > 0 && (
                 <>
                     <h3 className="text-center font-bold text-orange-500 text-xl">Trending</h3>
                     <div className="w-full px-12 py-4 flex flex-wrap justify-center bg-orange-100 ">
                         {searchH.slice(0, 5).map((_,index) => {
+                            setTrending(true)
                             const itemResultGroup = resultsT?.[index];
                             const firstResult = itemResultGroup?.[0];
                             
