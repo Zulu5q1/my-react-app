@@ -161,6 +161,10 @@ Potential next steps for this project include:
 - Server-side API protection for production deployments
 - Improved accessibility auditing and keyboard navigation
 
+## Journey
+
+Foogle wasn't built in a weekend. It was built over 40 days while I documented my progress, solved real bugs, and learned React by shipping features one at a time.
+
 ## License
 
 This project is for demonstration and portfolio purposes.
