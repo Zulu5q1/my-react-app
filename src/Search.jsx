@@ -26,7 +26,7 @@ const Search = () => {
     
 
     return (
-        <div className={`relative flex flex-col bg-orange-100 ${trending ? 'h-[400px]':'h-screen' }  w-full items-center justify-center`}>
+        <div className={`relative flex flex-col bg-orange-100 ${trending ? 'h-100':'h-screen' }  w-full items-center justify-center`}>
             <div onClick={() => setIsOpen(!isOpen)} className=" cursor-pointer absolute top-0 right-0 mt-4 mr-4 flex flex-col gap-2  text-orange-700 bg-orange-300 px-2 pt-1 rounded-md font-bold items-center justify-center">Recent Searches 
             {history(navigate)}
             </div>

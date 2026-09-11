@@ -23,7 +23,7 @@ const Trending = () => {
 
     return (
         
-        <div className="h-screen">
+        <div className="">
             {searchH && searchH.length > 0 && (
                 <>
                     <h3 className="text-center font-bold text-orange-500 text-xl">Trending</h3>
